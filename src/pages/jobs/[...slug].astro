@@ -1,22 +1,20 @@
 ---
 import { getCollection } from "astro:content";
 import JobsLayout from "@/layouts/JobsLayout.astro";
+
+// Generate static paths for all job posts
 export async function getStaticPaths() {
   const jobs = await getCollection("jobs");
-  const paths = jobs.map((page) => {
-    return {
-      params: { slug: page.slug },
-      props: { page },
-
-      trailingSlash: false,
-    };
-  });
-  return paths;
+  return jobs.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
 }
-const { page } = Astro.props;
-const { Content } = await page.render();
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
 ---
 
-<JobsLayout frontmatter={page.data}>
+<JobsLayout frontmatter={entry.data}>
   <Content />
 </JobsLayout>

@@ -18,39 +18,28 @@ import Entries from "@/components/jobs/Entries.astro";
           <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div
               class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-              <table class="min-w-full">
+              <table class="min-w-full divide-y divide-slate-200">
                 <thead>
                   <tr>
-                    <th
-                      scope="col"
-                      class="py-3.5 text-left text-sm font-slate-500"
-                      >Role</th
-                    >
-                    <th
-                      scope="col"
-                      class="px-3 py-3.5 text-left text-sm font-semibold text-slate-500"
-                      >Team</th
-                    >
-                    <th
-                      scope="col"
-                      class="px-3 py-3.5 text-left text-sm font-semibold text-slate-500"
-                      >Location</th
-                    >
+                    <th scope="col" class="py-3.5 text-left text-sm font-semibold text-slate-500">Position</th>
+                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-slate-500">Team</th>
+                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-slate-500">Location</th>
+                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-slate-500">Type</th>
+                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-slate-500">Salary</th>
                   </tr>
                 </thead>
-                <tbody class="bg-white divide-y">
-                  {
-                    allPosts.slice().map((post) => (
-                      <Entries
-                        url={"/jobs/" + post.slug}
-                        position={post.data.position}
-                        location={post.data.location}
-                        team={post.data.team}
-                        alt={post.data.position}
-                        flag={post.data.flag.url}
-                      />
-                    ))
-                  }
+                <tbody class="divide-y divide-slate-200">
+                  {allPosts.map((post) => (
+                    <Entries
+                      url={"/jobs/" + post.slug}
+                      position={post.data.position}
+                      location={post.data.location}
+                      team={post.data.team}
+                      datePosted={post.data.datePosted}
+                      salary={post.data.salary}
+                      employmentType={post.data.employmentType}
+                    />
+                  ))}
                 </tbody>
               </table>
             </div>

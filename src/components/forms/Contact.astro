@@ -1,0 +1,189 @@
+---
+const features = [
+  {
+    icon: "sales",
+    title: "Sales",
+    description: "Learn how we can help grow your business with recruiting.",
+  },
+  {
+    icon: "support",
+    title: "Support",
+    description: "Have questions? Our team is here to help.",
+  },
+  {
+    icon: "press",
+    title: "Press",
+    description: "For media inquiries and press opportunities.",
+  },
+  {
+    icon: "partners",
+    title: "Partners",
+    description: "Interested in partnering with us? Let's connect.",
+  },
+];
+---
+
+<section>
+  <div class="mx-auto max-w-7xl lg:px-16 md:px-12 px-8 xl:px-24 py-24">
+    <div class="flex flex-col gap-12 lg:gap-24">
+      <div class="mx-auto grid max-w-screen-xl grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-4 items-center">
+        <div class="relative lg:static">
+          <div>
+            <span class="text-sm uppercase font-medium tracking-wide text-blue-600">
+              Contact us
+            </span>
+            <h2 class="text-purple-900 font-semibold tracking-tight mt-6 text-4xl lg:text-5xl">
+              Get in touch with our team
+            </h2>
+            <dl class="mt-10 space-y-4 text-sm text-slate-500">
+              <div class="flex gap-x-4">
+                <dt class="flex-none">
+                  <span class="sr-only">Address</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="size-5 text-blue-600" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"></path>
+                    <path d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0z"></path>
+                  </svg>
+                </dt>
+                <dd>Newport Beach, CA</dd>
+              </div>
+              <div class="flex gap-x-4">
+                <dt class="flex-none">
+                  <span class="sr-only">Email</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="size-5 text-blue-600" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z"></path>
+                    <path d="M3 7l9 6l9 -6"></path>
+                  </svg>
+                </dt>
+                <dd>
+                  <a class="hover:text-purple-900" href="mailto:contact@tustinrecruiting.com">
+                    contact@tustinrecruiting.com
+                  </a>
+                </dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+
+        <form class="bg-white p-8 rounded-xl shadow-sm border border-slate-200">
+          <div class="flex-col flex gap-4">
+            <div class="w-full">
+              <label for="name" class="sr-only">Full name</label>
+              <input
+                id="name"
+                type="text"
+                name="name"
+                placeholder="Full name"
+                required
+                class="block w-full px-4 py-3 rounded-lg text-sm text-slate-600 placeholder:text-slate-400 bg-slate-50 border-0 focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <div class="w-full">
+              <label for="email" class="sr-only">Email</label>
+              <input
+                id="email"
+                type="email"
+                name="email"
+                placeholder="Email address"
+                required
+                class="block w-full px-4 py-3 rounded-lg text-sm text-slate-600 placeholder:text-slate-400 bg-slate-50 border-0 focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <div>
+              <label for="company" class="sr-only">Company</label>
+              <input
+                id="company"
+                type="text"
+                name="company"
+                placeholder="Company name"
+                class="block w-full px-4 py-3 rounded-lg text-sm text-slate-600 placeholder:text-slate-400 bg-slate-50 border-0 focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <div>
+              <label for="message" class="sr-only">Message</label>
+              <textarea
+                id="message"
+                name="message"
+                rows="4"
+                placeholder="Your message"
+                class="block w-full px-4 py-3 rounded-lg text-sm text-slate-600 placeholder:text-slate-400 bg-slate-50 border-0 focus:ring-2 focus:ring-blue-500"
+              ></textarea>
+            </div>
+          </div>
+          
+          <button
+            type="submit"
+            class="text-blue-600 mt-8 w-full items-center font-medium gap-3 text-sm inline-flex focus-visible:outline-2 focus-visible:outline-offset-2 focus:outline-none justify-center px-6 ring-2 ring-transparent focus:ring-offset-2 focus:ring-blue-500 duration-200 py-2.5 rounded-full active:bg-blue-800 active:text-white bg-blue-50 hover:bg-blue-100"
+          >
+            Send Message
+          </button>
+
+          <div class="mt-4">
+            <div class="flex items-start">
+              <input
+                id="privacy"
+                name="privacy"
+                type="checkbox"
+                required
+                class="mt-1 size-4 rounded text-blue-600 focus:ring-blue-500"
+              />
+              <label for="privacy" class="ml-3 text-xs text-slate-500">
+                By submitting this form, you agree to our
+                <a href="/privacy" class="text-blue-600 hover:text-blue-500">Privacy Policy</a>
+                and
+                <a href="/terms" class="text-blue-600 hover:text-blue-500">Terms of Service</a>.
+              </label>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+        {
+          features.map((feature) => (
+            <div class="bg-white p-8 rounded-xl shadow-sm border border-slate-200">
+              <div class="inline-flex items-center gap-2">
+                {feature.icon === "sales" && (
+                  <svg xmlns="http://www.w3.org/2000/svg" class="size-5 text-blue-600" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 5a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-14z" />
+                    <path d="M3 10h18" />
+                    <path d="M7 15h.01" />
+                    <path d="M11 15h2" />
+                  </svg>
+                )}
+                {feature.icon === "support" && (
+                  <svg xmlns="http://www.w3.org/2000/svg" class="size-5 text-blue-600" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 12m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
+                    <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
+                    <path d="M15 15l3.35 3.35" />
+                    <path d="M9 15l-3.35 3.35" />
+                    <path d="M5.65 5.65l3.35 3.35" />
+                    <path d="M18.35 5.65l-3.35 3.35" />
+                  </svg>
+                )}
+                {feature.icon === "press" && (
+                  <svg xmlns="http://www.w3.org/2000/svg" class="size-5 text-blue-600" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M16 6h3a1 1 0 0 1 1 1v11a2 2 0 0 1 -4 0v-13a1 1 0 0 0 -1 -1h-10a1 1 0 0 0 -1 1v12a3 3 0 0 0 3 3h11" />
+                    <path d="M8 8l4 0" />
+                    <path d="M8 12l4 0" />
+                    <path d="M8 16l4 0" />
+                  </svg>
+                )}
+                {feature.icon === "partners" && (
+                  <svg xmlns="http://www.w3.org/2000/svg" class="size-5 text-blue-600" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+                    <path d="M3 21v-2a4 4 0 0 1 4 -4h4c.96 0 1.84 .338 2.53 .901" />
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                    <path d="M16 19h6" />
+                    <path d="M19 16v6" />
+                  </svg>
+                )}
+                <h3 class="font-semibold text-purple-900">{feature.title}</h3>
+              </div>
+              <p class="mt-2 text-sm text-slate-500">{feature.description}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section> 
