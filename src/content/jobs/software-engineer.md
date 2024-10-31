@@ -15,7 +15,7 @@ salary:
 companyDetails:
   name: "Tustin Recruiting"
   url: "https://tustinrecruiting.com"
-  logo: "https://tustinrecruiting.com/images/LOGO1.png"
+  logo: "/images/LOGO1.png"
 address:
   street: "1234 Main Street"
   city: "Newport Beach"

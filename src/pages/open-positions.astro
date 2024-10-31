@@ -1,0 +1,20 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import JobGrid from "@/components/jobs/JobGrid.astro";
+import CtaOp from "@/components/cta/CtaOp.astro";
+const allJobs = await getCollection("jobs");
+---
+
+<BaseLayout>
+  <section class="bg-white">
+    <div class="mx-auto max-w-7xl lg:px-16 md:px-12 px-8 xl:px-24 mt-12">
+      <h1
+      class="text-purple-900 font-semibold mt-6 text-3xl lg:text-4xl tracking-tight mb-12">
+      Tustin Recruiting Jobs
+    </h1>
+      <JobGrid jobs={allJobs} />
+    </div>
+  </section>
+  <CtaOp />
+</BaseLayout>

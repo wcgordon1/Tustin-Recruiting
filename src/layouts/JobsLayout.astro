@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
+import CtaLink from "../components/cta/CtaLink.astro";
 const { frontmatter } = Astro.props;
 
 // Format salary for display
@@ -55,6 +56,14 @@ const jobSchema = {
     }
   }
 };
+
+const formatDate = (date) => {
+  return new Date(date).toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric'
+  });
+};
 ---
 
 <BaseLayout>
@@ -62,25 +71,31 @@ const jobSchema = {
     <script type="application/ld+json" set:html={JSON.stringify(jobSchema, null, 2)} />
   </Fragment>
   <section>
-    <div class="mx-auto max-w-7xl lg:px-16 md:px-12 px-8 xl:px-24 lg:flex py-24">
-      <div class="lg:w-1/2 lg:pl-12 lg:ml-auto">
-        <div class="lg:sticker lg:sticky pb-16 pt-8 top-0">
-          <div class="lg:pl-36 md:pl-12">
-            <nav aria-label="Sidebar" class="bg-slate-50 rounded-lg divide-y space-y-3 p-4 lg:p-8">
-              <div>
-                <h3 class="text-lg text-purple-900">Job Details</h3>
-                <div class="space-y-3 mt-4">
+    <div class="mx-auto max-w-7xl lg:px-16 md:px-12 px-8 xl:px-24 py-24">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+        <!-- Sidebar -->
+        <div class="order-1 lg:order-2 lg:col-span-4">
+          <div class="lg:sticky lg:top-8">
+            <nav aria-label="Sidebar" class="bg-slate-50 rounded-xl shadow-sm border border-slate-200 divide-y divide-slate-200">
+              <div class="p-6 flex flex-col items-start">
+                <img src={frontmatter.companyDetails.logo} alt="Company Logo" class="mb-4 w-16 h-16 object-contain" />
+                <h3 class="text-lg font-semibold text-purple-900">Job Details</h3>
+                <div class="space-y-4 mt-4">
+                  <div>
+                    <p class="text-sm font-medium text-slate-500">Company</p>
+                    <a href={frontmatter.companyDetails.url} target="_blank" rel="noopener noreferrer" class="text-sm text-blue-600 hover:text-blue-700">{frontmatter.companyDetails.name}</a>
+                  </div>
+                  <div>
+                    <p class="text-sm font-medium text-slate-500">Posted</p>
+                    <p class="text-sm text-slate-700">{formatDate(frontmatter.datePosted)}</p>
+                  </div>
                   <div>
                     <p class="text-sm font-medium text-slate-500">Location</p>
                     <p class="text-sm text-slate-700">{frontmatter.location}</p>
                   </div>
                   <div>
-                    <p class="text-sm font-medium text-slate-500">Team</p>
-                    <p class="text-sm text-slate-700">{frontmatter.team}</p>
-                  </div>
-                  <div>
                     <p class="text-sm font-medium text-slate-500">Employment Type</p>
-                    <p class="text-sm text-slate-700">{frontmatter.employmentType}</p>
+                    <p class="text-sm text-slate-700">{frontmatter.employmentType.replace('_', ' ')}</p>
                   </div>
                   <div>
                     <p class="text-sm font-medium text-slate-500">Salary</p>
@@ -88,9 +103,9 @@ const jobSchema = {
                   </div>
                 </div>
               </div>
-              <div class="pt-4 flex">
+              <div class="p-6">
                 <a
-                  class="text-white items-center font-medium gap-3 inline-flex focus-visible:outline-2 focus-visible:outline-offset-2 focus:outline-none justify-center px-6 lg:px-8 ring-2 ring-transparent focus:ring-offset-2 focus:ring-blue-500 duration-200 py-3.5 rounded-full active:bg-blue-800 active:text-white bg-blue-500 hover:bg-blue-600 w-full"
+                  class="text-white w-full items-center font-medium gap-3 inline-flex focus-visible:outline-2 focus-visible:outline-offset-2 focus:outline-none justify-center px-6 ring-2 ring-transparent focus:ring-offset-2  focus:ring-blue-500 duration-200 py-3.5 rounded-full active:bg-blue-800 active:text-white bg-blue-500 hover:bg-blue-600"
                   href="/jobs/job-application">
                   Apply now
                 </a>
@@ -98,12 +113,12 @@ const jobSchema = {
             </nav>
           </div>
         </div>
-      </div>
-      <div class="lg:w-1/2 lg:order-first">
-        <div class="flex-shrink-0">
-          <p class="text-purple-900 font-semibold mt-6 text-3xl tracking-tight lg:text-balance">
+
+        <!-- Content -->
+        <div class="order-1 lg:order-1 lg:col-span-8">
+          <h1 class="text-purple-900 font-semibold text-3xl lg:text-4xl tracking-tight">
             {frontmatter.position}
-          </p>
+          </h1>
           <div class="prose prose-slate mt-6 max-w-none">
             <slot />
           </div>
@@ -111,31 +126,5 @@ const jobSchema = {
       </div>
     </div>
   </section>
-  <section class="bg-white">
-    <div class="lg:p-8">
-      <div class="bg-purple-900 max-w-7xl mx-auto lg:rounded-3xl">
-        <div class="mx-auto max-w-7xl lg:px-16 md:px-12 px-8 xl:px-24 py-24">
-          <div>
-            <h2 class="text-white font-semibold tracking-tighter lg:text-5xl text-3xl">
-              We look forward to hearing from you
-            </h2>
-            <p class="text-slate-300 mt-5 lg:text-balance">
-              At Tustin Recruiting, we're looking for people with passion, grit, and integrity. 
-              You're encouraged to apply even if your experience doesn't precisely match the job description. 
-              Your skills and passion will stand out—and set you apart—especially if your career has taken 
-              some extraordinary twists and turns. We welcome diverse perspectives and people who think 
-              rigorously and aren't afraid to challenge assumptions. Join us.
-            </p>
-            <div class="mt-10 flex">
-              <a
-                class="text-white items-center font-medium gap-3 inline-flex focus-visible:outline-2 focus-visible:outline-offset-2 focus:outline-none justify-center px-6 lg:px-8 ring-2 ring-transparent focus:ring-offset-2 focus:ring-blue-500 duration-200 py-3.5 rounded-full active:bg-blue-800 active:text-white bg-blue-500 hover:bg-blue-600 w-auto"
-                href="/jobs/job-application">
-                Apply now
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <CtaLink />
 </BaseLayout>
