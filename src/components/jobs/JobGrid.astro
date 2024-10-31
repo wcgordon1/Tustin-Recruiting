@@ -21,7 +21,7 @@ const formatDate = (date) => {
           id="searchInput"
           class="w-full px-4 py-3 rounded-lg text-sm text-slate-600 bg-white border-0 ring-1 ring-slate-200 focus:ring-2 focus:ring-blue-500 shadow-sm"
           type="text"
-          placeholder="Search jobs by title, location, or keywords..."
+          placeholder="Search jobs by Title, Location, Industry, Role, or Keywords..."
           aria-label="Search"
         />
         <button 
@@ -34,7 +34,7 @@ const formatDate = (date) => {
     </div>
   </div>
 
-  <div class="pt-12">
+  <div class="pt-12 mb-24">
     <div class="flex flex-col lg:flex-row gap-8">
       <!-- Job Listings -->
       <div class="lg:w-2/3 space-y-6">
@@ -42,8 +42,11 @@ const formatDate = (date) => {
           <div class="job-item" 
             data-position={job.data.position}
             data-location={job.data.location}
-            data-description={job.data.description}
             data-team={job.data.team}
+            data-occupation={job.data.occupationalCategory}
+            data-salary={job.data.salary.value}
+            data-city={job.data.address.city}
+            data-region={job.data.address.region}
             data-company={job.data.companyDetails.name}>
             <a href={`/jobs/${job.slug}`} class="block group">
               <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 hover:border-blue-100 hover:shadow-md transition duration-200">
@@ -69,13 +72,9 @@ const formatDate = (date) => {
                 <p class="text-sm text-slate-500 line-clamp-2 mb-4">{job.data.description}</p>
 
                 <div class="flex justify-end">
-                  <a
-                    href={`/jobs/${job.slug}/job-application`}
-                    class="text-white items-center font-medium gap-3 inline-flex focus-visible:outline-2 focus-visible:outline-offset-2 focus:outline-none justify-center px-6 lg:px-8 ring-2 ring-transparent focus:ring-offset-2 focus:ring-blue-500 duration-200 py-3.5 rounded-full active:bg-blue-800 active:text-white bg-blue-500 hover:bg-blue-600 w-auto"
-                    @click.stop
-                  >
-                    Apply now
-                  </a>
+                    <p class="text-sm font-semibold text-blue-600 line-clamp-2">Easy Apply</p>
+
+                 
                 </div>
               </div>
             </a>
@@ -104,7 +103,7 @@ const formatDate = (date) => {
                 href="/about"
                 class="text-blue-600 w-full items-center font-medium gap-3 inline-flex focus-visible:outline-2 focus-visible:outline-offset-2 focus:outline-none justify-center px-6 ring-2 ring-transparent focus:ring-offset-2 focus:ring-blue-500 duration-200 py-2.5 rounded-full active:bg-blue-800 active:text-white bg-blue-50 hover:bg-blue-100"
               >
-                Learn More
+                Post a Job
               </a>
             </div>
           </div>
@@ -115,7 +114,6 @@ const formatDate = (date) => {
 </div>
 
 <script>
-  // Search functionality script remains the same
   let searchTerm = '';
 
   function filterJobs() {
@@ -137,7 +135,26 @@ const formatDate = (date) => {
         return;
       }
 
-      const searchableContent = Object.values(item.dataset)
+      // Check if search term is a number (potential salary search)
+      const salarySearch = parseInt(searchTerm.replace(/[^0-9]/g, ''));
+      const jobSalary = parseInt(item.dataset.salary || '0');
+
+      // If it's a salary search, show jobs with salary greater than or equal to search value
+      if (!isNaN(salarySearch) && jobSalary >= salarySearch) {
+        item.style.display = '';
+        return;
+      }
+
+      // Create searchable content from specific frontmatter fields
+      const searchableContent = [
+        item.dataset.position,
+        item.dataset.location,
+        item.dataset.team,
+        item.dataset.occupation,
+        item.dataset.city,
+        item.dataset.region,
+        item.dataset.company
+      ]
         .filter(Boolean)
         .join(' ')
         .toLowerCase();
