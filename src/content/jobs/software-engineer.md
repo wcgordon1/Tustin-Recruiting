@@ -2,12 +2,12 @@
 position: "Software Engineer"
 location: "Newport Beach, CA"
 team: "Engineering"
-industry: ["Technology", "Software", "SaaS"]
-role: ["Engineering", "Development", "Backend"]
+industry: ["Technology", "Software"]
+role: ["Engineering", "Development"]
 employmentType: "FULL_TIME"
 datePosted: "2024-01-18"
 validThrough: "2024-03-18T00:00"
-description: "We are seeking a highly skilled Software Engineer to join our Engineering team in Newport Beach, CA. As a Software Engineer, you will be responsible for designing, developing, and maintaining our software applications. You will work closely with cross-functional teams to identify and prioritize project requirements, ensuring timely and high-quality delivery of software products."
+description: "We are seeking a highly skilled Software Engineer to join our Engineering team..."
 experienceRequirements: "5+ years"
 occupationalCategory: "Software Engineering"
 salary:
@@ -29,35 +29,4 @@ identifier:
   value: "TR12345"
 ---
 
-### Job Description
-
-We are seeking a highly skilled Software Engineer to join our Engineering team in Newport Beach, CA. As a Software Engineer, you will be responsible for designing, developing, and maintaining our software applications. You will work closely with cross-functional teams to identify and prioritize project requirements, ensuring timely and high-quality delivery of software products.
-
-#### Responsibilities
-
-* Design, develop, test, and deploy software applications using modern technologies and frameworks
-* Collaborate with product management to understand project requirements and develop solutions that meet business needs
-* Participate in code reviews and ensure adherence to coding standards and best practices
-* Troubleshoot and resolve complex technical issues
-* Mentor junior engineers and contribute to the growth of the engineering team
-* Stay up-to-date with industry trends and emerging technologies
-
-#### Requirements
-
-* Bachelor's degree in Computer Science or a related field
-* At least 5 years of experience in software development with a focus on backend technologies
-* Proficiency in languages such as Java, Python, or C++
-* Experience with cloud-based technologies such as AWS or Azure
-* Strong understanding of software design patterns and principles
-* Excellent problem-solving skills and attention to detail
-* Effective communication and collaboration skills
-
-#### What We Offer
-
-* Competitive salary: $150,000/year
-* Full-time employment with benefits
-* Opportunities for professional growth and development
-* Collaborative and dynamic work environment
-* Flexible work arrangements and remote work options
-
-If you are a motivated and talented software engineer looking for a new challenge, please apply with your resume and a cover letter explaining why you would be a great fit for this role.
+[Job description content here...]

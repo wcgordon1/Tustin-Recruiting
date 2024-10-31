@@ -12,50 +12,80 @@ const formatDate = (date) => {
 };
 ---
 
-<section>
-  <JobSearch jobs={jobs} />
-  
+<div>
+  <!-- Search Input -->
+  <div class="lg:-mt-24 mx-auto md:px-32 py-6 max-w-7xl">
+    <div class="mx-auto rounded-2xl p-4 lg:p-8 mt-4 bg-white/20 backdrop-blur-xl shadow-2xl shadow-slate-500/40">
+      <div class="relative">
+        <input
+          id="searchInput"
+          class="w-full px-4 py-3 rounded-lg text-sm text-slate-600 bg-white border-0 ring-1 ring-slate-200 focus:ring-2 focus:ring-blue-500 shadow-sm"
+          type="text"
+          placeholder="Search jobs by title, location, or keywords..."
+          aria-label="Search"
+        />
+        <button 
+          id="resetButton" 
+          class="absolute right-3 top-1/2 -translate-y-1/2 text-sm font-medium text-slate-400 hover:text-blue-600 hidden"
+        >
+          Clear
+        </button>
+      </div>
+    </div>
+  </div>
+
   <div class="pt-12">
     <div class="flex flex-col lg:flex-row gap-8">
+      <!-- Job Listings -->
       <div class="lg:w-2/3 space-y-6">
         {jobs.map((job) => (
-          <a href={`/jobs/${job.slug}`} class="block group">
-            <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 hover:border-blue-100 hover:shadow-md transition duration-200">
-              <div class="flex justify-between items-center mb-1">
-                <p class="text-base font-semibold text-slate-500 mb-1">{job.data.companyDetails.name}</p>
-                <span class="text-xs font-medium text-blue-600 bg-blue-50 px-3 py-1 rounded-full">NEW</span>
-              </div>
+          <div class="job-item" 
+            data-position={job.data.position}
+            data-location={job.data.location}
+            data-description={job.data.description}
+            data-team={job.data.team}
+            data-company={job.data.companyDetails.name}>
+            <a href={`/jobs/${job.slug}`} class="block group">
+              <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 hover:border-blue-100 hover:shadow-md transition duration-200">
+                <div class="flex justify-between items-center mb-1">
+                  <p class="text-base font-semibold text-slate-500 mb-1">{job.data.companyDetails.name}</p>
+                  <span class="text-xs font-medium text-blue-600 bg-blue-50 px-3 py-1 rounded-full">NEW</span>
+                </div>
 
-              <div class="flex justify-between items-center mb-1">
-                <h3 class="text-lg font-semibold text-blue-600 group-hover:text-blue-700">{job.data.position}</h3>
-              </div>            
-              
-              <div class="flex justify-start items-center mb-1 gap-1 flex-wrap">
-                <p class="text-sm text-slate-500">
-                  <span class="text-slate-500">{job.data.location}</span>
-                </p> -  
-                <p class="text-sm text-slate-500">{formatSalary(job.data.salary)}</p> -  
-                <p class="text-sm text-slate-500">Posted {formatDate(job.data.datePosted)}</p>
-              </div>
-              
-              <p class="text-sm text-slate-500 line-clamp-2 mb-6">{job.data.description}</p>
+                <div class="flex justify-between items-center mb-1">
+                  <h3 class="text-lg font-semibold text-blue-600 group-hover:text-blue-700">{job.data.position}</h3>
+                </div>            
+                
+                <div class="flex justify-start items-center mb-1 gap-1 flex-wrap">
+                  <p class="text-sm text-slate-500">
+                    <span class="text-slate-500">{job.data.location}</span>
+                  </p>
+                  <span class="text-slate-500">-</span>
+                  <p class="text-sm text-slate-500">{formatSalary(job.data.salary)}</p>
+                  <span class="text-slate-500">-</span>
+                  <p class="text-sm text-slate-500">Posted {formatDate(job.data.datePosted)}</p>
+                </div>
+                
+                <p class="text-sm text-slate-500 line-clamp-2 mb-4">{job.data.description}</p>
 
-              <div class="flex justify-end mt-4">
-                <a
-                  href={`/jobs/${job.slug}/job-application`}
-                  class="text-white items-center font-medium gap-3 inline-flex focus-visible:outline-2 focus-visible:outline-offset-2 focus:outline-none justify-center px-6 lg:px-8 ring-2 ring-transparent focus:ring-offset-2 focus:ring-blue-500 duration-200 py-3.5 rounded-full active:bg-blue-800 active:text-white bg-blue-500 hover:bg-blue-600 w-auto"
-                  @click.stop
-                >
-                  Apply now
-                </a>
+                <div class="flex justify-end">
+                  <a
+                    href={`/jobs/${job.slug}/job-application`}
+                    class="text-white items-center font-medium gap-3 inline-flex focus-visible:outline-2 focus-visible:outline-offset-2 focus:outline-none justify-center px-6 lg:px-8 ring-2 ring-transparent focus:ring-offset-2 focus:ring-blue-500 duration-200 py-3.5 rounded-full active:bg-blue-800 active:text-white bg-blue-500 hover:bg-blue-600 w-auto"
+                    @click.stop
+                  >
+                    Apply now
+                  </a>
+                </div>
               </div>
-            </div>
-          </a>
+            </a>
+          </div>
         ))}
       </div>
 
+      <!-- Right Sidebar -->
       <div class="lg:w-1/3">
-        <div class="lg:sticky lg:top-8 bg-white p-6 rounded-xl shadow-sm border border-slate-200 mt-6">
+        <div class="lg:sticky lg:top-8 bg-white p-6 rounded-xl shadow-sm border border-slate-200">
           <div class="text-center">
             <h3 class="text-xl font-semibold text-purple-900 mb-3">
               Tustin Recruiting
@@ -82,4 +112,51 @@ const formatDate = (date) => {
       </div>
     </div>
   </div>
-</section>
+</div>
+
+<script>
+  // Search functionality script remains the same
+  let searchTerm = '';
+
+  function filterJobs() {
+    const jobItems = document.querySelectorAll('.job-item');
+    const searchInput = document.getElementById('searchInput') as HTMLInputElement;
+    const resetButton = document.getElementById('resetButton');
+    
+    searchTerm = searchInput.value.toLowerCase();
+    
+    if (resetButton) {
+      resetButton.style.display = searchTerm.length >= 2 ? 'block' : 'none';
+    }
+
+    jobItems.forEach(item => {
+      if (!(item instanceof HTMLElement)) return;
+      
+      if (searchTerm.length < 2) {
+        item.style.display = '';
+        return;
+      }
+
+      const searchableContent = Object.values(item.dataset)
+        .filter(Boolean)
+        .join(' ')
+        .toLowerCase();
+
+      item.style.display = searchableContent.includes(searchTerm) ? '' : 'none';
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const searchInput = document.getElementById('searchInput');
+    const resetButton = document.getElementById('resetButton');
+
+    searchInput?.addEventListener('input', filterJobs);
+
+    resetButton?.addEventListener('click', () => {
+      if (searchInput instanceof HTMLInputElement) {
+        searchInput.value = '';
+        filterJobs();
+      }
+    });
+  });
+</script>
