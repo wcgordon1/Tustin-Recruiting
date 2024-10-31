@@ -5,6 +5,8 @@ const jobsCollection = defineCollection({
     position: z.string(),
     location: z.string(),
     team: z.string(),
+    industry: z.array(z.string()),
+    role: z.array(z.string()),
     employmentType: z.enum([
       "FULL_TIME",
       "PART_TIME",

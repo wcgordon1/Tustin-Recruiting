@@ -7,15 +7,23 @@ const allJobs = await getCollection("jobs");
 ---
 
 <BaseLayout>
-  <section class="bg-white">
-    <div class="mx-auto max-w-7xl lg:px-16 md:px-12 px-8 xl:px-24 mt-12">
-      <span class="text-sm uppercase font-medium tracking-wide text-blue-600 "
-          >Tustin Recruiting</span
-        >
-        <h1
-          class="text-purple-900 font-semibold mt-6 text-4xl lg:text-5xl tracking-tigh mb-12">
-          Open Positions
-        </h1>
+  <section>
+    <header class="px-8 mx-auto max-w-7xl pt-8">
+      <div class="p-8 lg:px-20 lg:py-32 rounded-3xl bg-gradient-to-tr from-purple-900 via-purple-800 to-blue-700">
+        <div class="text-center max-w-2xl mx-auto">
+          <span class="text-white text-sm font-medium px-4 py-2 relative bg-white/10 ring-1 ring-white/20 rounded-full">
+            Find your next opportunity
+          </span>
+          <h1 class="text-white text-3xl font-semibold tracking-tight lg:text-5xl mt-8">
+            Tustin Recruiting Jobs
+          </h1>
+          <p class="text-slate-200 text-lg mt-6 lg:text-balance">
+            Discover roles at innovative companies. Our recruiters connect talented professionals with opportunities that match their skills and aspirations.
+          </p>
+        </div>
+      </div>
+    </header>
+    <div class="mx-auto max-w-7xl lg:px-16 md:px-12 px-8 xl:px-24">
       <JobGrid jobs={allJobs} />
     </div>
   </section>

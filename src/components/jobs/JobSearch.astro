@@ -1,0 +1,141 @@
+---
+const { jobs } = Astro.props;
+
+// Extract unique locations
+const locations = [...new Set(jobs.map(job => job.data.location))];
+
+// Extract unique industries
+const industries = [...new Set(jobs.flatMap(job => job.data.industry))];
+
+// Extract unique roles
+const roles = [...new Set(jobs.flatMap(job => job.data.role))];
+---
+
+<div class="lg:-mt-24 mx-auto md:px-32 py-6 max-w-7xl">
+  <div class="mx-auto rounded-2xl p-4 lg:p-8 mt-4 bg-white/20 backdrop-blur-xl shadow-2xl shadow-slate-500/40">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-2 lg:grid-cols-4">
+      <!-- Search Input -->
+      <div class="flex justify-start items-center relative">
+        <input
+          x-model="searchQuery"
+          class="leading-none shadow shadow-slate-500/20 text-left block w-full rounded-lg border-0 py-2.5 lg:rounded-xl pl-4 pr-8 text-slate-500 ring-1 ring-inset ring-slate-300 focus:ring-2 focus:ring-blue-500 sm:text-sm sm:leading-6 duration-200 px-4 border-slate-300 outline-none"
+          type="text"
+          placeholder="Search jobs..."
+          aria-label="Search"
+        />
+        <svg
+          class="absolute right-3 z-10 cursor-pointer"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M10 17C13.866 17 17 13.866 17 10C17 6.13401 13.866 3 10 3C6.13401 3 3 6.13401 3 10C3 13.866 6.13401 17 10 17Z"
+            stroke="#6b7280"
+            stroke-width="1.66667"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          ></path>
+          <path
+            d="M21 21L15 15"
+            stroke="#6b7280"
+            stroke-width="1.66667"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          ></path>
+        </svg>
+      </div>
+
+      <!-- Location Dropdown -->
+      <div x-data="{ open: false }" class="relative">
+        <button
+          @click="open = !open"
+          class="flex relative items-center gap-2 w-full rounded-lg bg-white text-slate-500 ring-1 ring-inset ring-slate-300 focus:ring-2 focus:ring-blue-500 sm:text-sm sm:leading-6 duration-200 px-4 border-slate-300 outline-none shadow shadow-slate-500/20 border-0 py-2.5 lg:rounded-xl justify-between"
+          type="button">
+          <span>Location</span>
+          <svg
+            class="fill-current h-4 w-4"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20">
+            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"></path>
+          </svg>
+        </button>
+        <div
+          x-show="open"
+          @click.away="open = false"
+          class="absolute left-0 mt-2 w-full bg-white rounded-md shadow-md shadow-slate-500/20 z-10"
+          style="min-width:15rem">
+          {locations.map(location => (
+            <button
+              @click="selectedLocation = location; open = false"
+              class="block w-full first-of-type:rounded-t-md last-of-type:rounded-b-md px-4 py-2.5 text-slate-500 hover:text-purple-900 text-left text-sm hover:bg-slate-50"
+            >
+              {location}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <!-- Industry Dropdown -->
+      <div x-data="{ open: false }" class="relative">
+        <button
+          @click="open = !open"
+          class="flex relative items-center gap-2 w-full rounded-lg bg-white text-slate-500 ring-1 ring-inset ring-slate-300 focus:ring-2 focus:ring-blue-500 sm:text-sm sm:leading-6 duration-200 px-4 border-slate-300 outline-none shadow shadow-slate-500/20 border-0 py-2.5 lg:rounded-xl justify-between"
+          type="button">
+          <span>Industry</span>
+          <svg
+            class="fill-current h-4 w-4"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20">
+            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"></path>
+          </svg>
+        </button>
+        <div
+          x-show="open"
+          @click.away="open = false"
+          class="absolute left-0 mt-2 w-full bg-white rounded-md shadow-md shadow-slate-500/20 z-10"
+          style="min-width:15rem">
+          {industries.map(industry => (
+            <button
+              @click="selectedIndustry = industry; open = false"
+              class="block w-full first-of-type:rounded-t-md last-of-type:rounded-b-md px-4 py-2.5 text-slate-500 hover:text-purple-900 text-left text-sm hover:bg-slate-50"
+            >
+              {industry}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <!-- Role Dropdown -->
+      <div x-data="{ open: false }" class="relative">
+        <button
+          @click="open = !open"
+          class="flex relative items-center gap-2 w-full rounded-lg bg-white text-slate-500 ring-1 ring-inset ring-slate-300 focus:ring-2 focus:ring-blue-500 sm:text-sm sm:leading-6 duration-200 px-4 border-slate-300 outline-none shadow shadow-slate-500/20 border-0 py-2.5 lg:rounded-xl justify-between"
+          type="button">
+          <span>Role</span>
+          <svg
+            class="fill-current h-4 w-4"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20">
+            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"></path>
+          </svg>
+        </button>
+        <div
+          x-show="open"
+          @click.away="open = false"
+          class="absolute left-0 mt-2 w-full bg-white rounded-md shadow-md shadow-slate-500/20 z-10"
+          style="min-width:15rem">
+          {roles.map(role => (
+            <button
+              @click="selectedRole = role; open = false"
+              class="block w-full first-of-type:rounded-t-md last-of-type:rounded-b-md px-4 py-2.5 text-slate-500 hover:text-purple-900 text-left text-sm hover:bg-slate-50"
+            >
+              {role}
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 

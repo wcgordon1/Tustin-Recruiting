@@ -1,8 +1,8 @@
 ---
+import JobSearch from "./JobSearch.astro";
 import { formatSalary } from "@/utils/formatters";
 const { jobs } = Astro.props;
 
-// Format date for display
 const formatDate = (date) => {
   return new Date(date).toLocaleDateString('en-US', {
     month: 'short',
@@ -12,164 +12,74 @@ const formatDate = (date) => {
 };
 ---
 
-<section x-data={`{
-  searchQuery: '',
-  jobs: ${JSON.stringify(jobs)},
+<section>
+  <JobSearch jobs={jobs} />
   
-  get filteredJobs() {
-    if (!this.searchQuery || this.searchQuery.length < 2) return this.jobs;
-    
-    const query = this.searchQuery.toLowerCase();
-    return this.jobs.filter(job => {
-      const searchableContent = [
-        job.data.position,
-        job.data.location,
-        job.data.team,
-        job.data.employmentType,
-        job.data.description,
-        job.data.companyDetails.name,
-        job.data.salary.value.toString(),
-        job.data.experienceRequirements,
-        job.data.occupationalCategory
-      ].join(' ').toLowerCase();
-      
-      return searchableContent.includes(query);
-    });
-  }
-}`}>
-  <div class="flex flex-col gap-8 lg:flex-row lg:gap-12 mb-24">
-    <!-- Left Column (Filter Section) -->
-    <div class="lg:w-1/4 w-full bg-white p-6 rounded-xl shadow-sm border border-slate-200 lg:sticky lg:top-8 self-start">
-      <!-- Search Bar -->
-      <div class="mb-8">
-        <div class="relative">
-          <input
-            type="text"
-            x-model="searchQuery"
-            placeholder="Search jobs..."
-            class="w-full px-4 py-3 rounded-lg text-sm text-slate-600 placeholder:text-slate-400 bg-slate-50 border-0 focus:ring-2 focus:ring-blue-500"
-          />
-          <!-- Clear button - shows only when search has content -->
-          <button
-            x-show="searchQuery.length >= 2"
-            @click="searchQuery = ''"
-            class="absolute right-3 top-1/2 -translate-y-1/2 text-sm font-medium text-slate-500 hover:text-blue-600"
-          >
-            Clear
-          </button>
-        </div>
-      </div>
+  <div class="pt-12">
+    <div class="flex flex-col lg:flex-row gap-8">
+      <div class="lg:w-2/3 space-y-6">
+        {jobs.map((job) => (
+          <a href={`/jobs/${job.slug}`} class="block group">
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 hover:border-blue-100 hover:shadow-md transition duration-200">
+              <div class="flex justify-between items-center mb-1">
+                <p class="text-base font-semibold text-slate-500 mb-1">{job.data.companyDetails.name}</p>
+                <span class="text-xs font-medium text-blue-600 bg-blue-50 px-3 py-1 rounded-full">NEW</span>
+              </div>
 
-      <h3 class="text-lg font-semibold text-purple-900 mb-4">Job Type</h3>
-      <div class="grid grid-cols-2 lg:grid-cols-1 gap-2 mb-6">
-        <div>
-          <input type="checkbox" id="FULL_TIME" class="mr-2 rounded text-blue-600 focus:ring-blue-500">
-          <label for="FULL_TIME" class="text-slate-600">Full-time</label>
-        </div>
-        <div>
-          <input type="checkbox" id="PART_TIME" class="mr-2 rounded text-blue-600 focus:ring-blue-500">
-          <label for="PART_TIME" class="text-slate-600">Part-time</label>
-        </div>
-        <div>
-          <input type="checkbox" id="CONTRACTOR" class="mr-2 rounded text-blue-600 focus:ring-blue-500">
-          <label for="CONTRACTOR" class="text-slate-600">Contract</label>
-        </div>
-        <div>
-          <input type="checkbox" id="TEMPORARY" class="mr-2 rounded text-blue-600 focus:ring-blue-500">
-          <label for="TEMPORARY" class="text-slate-600">Temporary</label>
-        </div>
-      </div>
-
-      <h3 class="text-lg font-semibold text-purple-900 mb-4">Experience Level</h3>
-      <div class="grid grid-cols-2 lg:grid-cols-1 gap-2">
-        <div>
-          <input type="checkbox" id="entry-level" class="mr-2 rounded text-blue-600 focus:ring-blue-500">
-          <label for="entry-level" class="text-slate-600">Entry Level</label>
-        </div>
-        <div>
-          <input type="checkbox" id="mid-level" class="mr-2 rounded text-blue-600 focus:ring-blue-500">
-          <label for="mid-level" class="text-slate-600">Mid Level</label>
-        </div>
-        <div>
-          <input type="checkbox" id="senior-level" class="mr-2 rounded text-blue-600 focus:ring-blue-500">
-          <label for="senior-level" class="text-slate-600">Senior Level</label>
-        </div>
-      </div>
-    </div>
-
-    <!-- Right Column (Job Listings) -->
-    <div class="lg:w-3/4 w-full space-y-6">
-      <!-- Job Card Header -->
-      <div class="flex justify-between items-center">
-        <h2 class="text-xl font-semibold text-purple-900">
-          <span x-text="filteredJobs.length"></span> Jobs Found
-        </h2>
-        <button class="text-slate-500 border border-slate-200 px-4 py-2 rounded-lg text-sm hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-blue-500">
-          Most Recent
-        </button>
-      </div>
-
-      <!-- No Results Message -->
-      <div x-show="filteredJobs.length === 0" class="text-center py-12">
-        <p class="text-slate-500">No jobs found matching your search criteria.</p>
-        <button
-          @click="searchQuery = ''"
-          class="text-blue-600 font-medium mt-4 hover:text-blue-700"
-        >
-          Clear search
-        </button>
-      </div>
-
-      <!-- Job Cards -->
-      <template x-for="job in filteredJobs" :key="job.slug">
-        <a :href="`/jobs/${job.slug}`" class="block group">
-          <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 hover:border-blue-100 hover:shadow-md transition duration-200">
-            
-            <div class="flex justify-between items-center mb-1">
-                <div class="flex items-center">
-                    <img :src="job.data.companyDetails.logo" alt="Company Logo" class="w-6 h-6 mr-2">
-                    <p class="text-base font-semibold text-slate-500" x-text="job.data.companyDetails.name"></p>
-                </div>
-                <span class="text-xs font-medium text-blue-600 bg-blue-50 px-2 py-1 rounded-full" x-text="'NEW' "></span>
-            </div>
-
-            <div class="flex justify-between items-center gap-2 mb-1">
-              <h3 class="text-lg font-semibold text-blue-600 group-hover:text-blue-700" x-text="job.data.position"></h3>
-              <!-- <span class="text-xs font-medium text-blue-600 bg-blue-50 px-3 py-1 rounded-full" x-text="job.data.employmentType.replace('_', ' ')"></span> -->
-            </div>            
-            <div class="flex justify-start items-center mb-1 gap-1 flex-wrap">
+              <div class="flex justify-between items-center mb-1">
+                <h3 class="text-lg font-semibold text-blue-600 group-hover:text-blue-700">{job.data.position}</h3>
+              </div>            
+              
+              <div class="flex justify-start items-center mb-1 gap-1 flex-wrap">
                 <p class="text-sm text-slate-500">
-                    <span class="text-slate-500" x-text="job.data.location"></span>
-                  </p> -  
-                  <p class="text-sm text-slate-500" x-text="formatSalary(job.data.salary)"></p> -  
-                  <p class="text-sm text-slate-500" x-text="'Posted ' + formatDate(job.data.datePosted)"></p>
+                  <span class="text-slate-500">{job.data.location}</span>
+                </p> -  
+                <p class="text-sm text-slate-500">{formatSalary(job.data.salary)}</p> -  
+                <p class="text-sm text-slate-500">Posted {formatDate(job.data.datePosted)}</p>
+              </div>
+              
+              <p class="text-sm text-slate-500 line-clamp-2 mb-6">{job.data.description}</p>
+
+              <div class="flex justify-end mt-4">
+                <a
+                  href={`/jobs/${job.slug}/job-application`}
+                  class="text-white items-center font-medium gap-3 inline-flex focus-visible:outline-2 focus-visible:outline-offset-2 focus:outline-none justify-center px-6 lg:px-8 ring-2 ring-transparent focus:ring-offset-2 focus:ring-blue-500 duration-200 py-3.5 rounded-full active:bg-blue-800 active:text-white bg-blue-500 hover:bg-blue-600 w-auto"
+                  @click.stop
+                >
+                  Apply now
+                </a>
+              </div>
             </div>
-            
-            <p class="text-sm text-slate-500 line-clamp-2 mb-2" x-text="job.data.description"></p>
-            <p class="text-base font-semibold text-blue-600 group-hover:text-blue-700" x-text="'Easy Apply &nbsp; &rarr;'"></p>
+          </a>
+        ))}
+      </div>
+
+      <div class="lg:w-1/3">
+        <div class="lg:sticky lg:top-8 bg-white p-6 rounded-xl shadow-sm border border-slate-200 mt-6">
+          <div class="text-center">
+            <h3 class="text-xl font-semibold text-purple-900 mb-3">
+              Tustin Recruiting
+            </h3>
+            <p class="text-sm text-slate-500 mb-6">
+              Looking to hire? Our team of expert recruiters can help you find the perfect candidates for your open positions.
+            </p>
+            <div class="space-y-3">
+              <a
+                href="/contact"
+                class="text-white w-full items-center font-medium gap-3 inline-flex focus-visible:outline-2 focus-visible:outline-offset-2 focus:outline-none justify-center px-6 ring-2 ring-transparent focus:ring-offset-2 focus:ring-blue-500 duration-200 py-2.5 rounded-full active:bg-blue-800 active:text-white bg-blue-500 hover:bg-blue-600"
+              >
+                Contact Us
+              </a>
+              <a
+                href="/about"
+                class="text-blue-600 w-full items-center font-medium gap-3 inline-flex focus-visible:outline-2 focus-visible:outline-offset-2 focus:outline-none justify-center px-6 ring-2 ring-transparent focus:ring-offset-2 focus:ring-blue-500 duration-200 py-2.5 rounded-full active:bg-blue-800 active:text-white bg-blue-50 hover:bg-blue-100"
+              >
+                Learn More
+              </a>
+            </div>
           </div>
-          
-        </a>
-      </template>
+        </div>
+      </div>
     </div>
   </div>
 </section>
-
-<script is:inline>
-  // Make helper functions available to Alpine
-  window.formatSalary = function(salary) {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: salary.currency,
-      minimumFractionDigits: 0
-    }).format(salary.value) + '/' + salary.unitText.toLowerCase();
-  };
-
-  window.formatDate = function(date) {
-    return new Date(date).toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric'
-    });
-  };
-</script> 

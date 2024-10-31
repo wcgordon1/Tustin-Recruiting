@@ -2,6 +2,8 @@
 position: "Senior Software Engineer"
 location: "Newport Beach, CA"
 team: "Engineering"
+industry: ["Technology", "Software", "SaaS"]
+role: ["Engineering", "Development", "Backend"]
 employmentType: "FULL_TIME"
 datePosted: "2024-01-18"
 validThrough: "2024-03-18T00:00"
