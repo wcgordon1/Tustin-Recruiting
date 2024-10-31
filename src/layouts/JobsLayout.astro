@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
 import CtaLink from "../components/cta/CtaLink.astro";
+import FormSolo from "../components/forms/FormSolo.astro";
 const { frontmatter } = Astro.props;
 
 // Format salary for display
@@ -106,7 +107,7 @@ const formatDate = (date) => {
               <div class="p-6">
                 <a
                   class="text-white w-full items-center font-medium gap-3 inline-flex focus-visible:outline-2 focus-visible:outline-offset-2 focus:outline-none justify-center px-6 ring-2 ring-transparent focus:ring-offset-2  focus:ring-blue-500 duration-200 py-3.5 rounded-full active:bg-blue-800 active:text-white bg-blue-500 hover:bg-blue-600"
-                  href="/jobs/job-application">
+                  href="#apply-form">
                   Apply now
                 </a>
               </div>
@@ -122,9 +123,11 @@ const formatDate = (date) => {
           <div class="prose prose-slate mt-6 max-w-none">
             <slot />
           </div>
+          <FormSolo />
         </div>
       </div>
     </div>
   </section>
+
   <CtaLink />
 </BaseLayout>

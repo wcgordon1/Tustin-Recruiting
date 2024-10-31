@@ -1,0 +1,71 @@
+<form class="bg-white p-8 rounded-xl shadow-sm border border-slate-200">
+    <div class="flex-col flex gap-4">
+      <div class="w-full">
+        <label for="name" class="sr-only">Full name</label>
+        <input
+          id="name"
+          type="text"
+          name="name"
+          placeholder="Full name"
+          required
+          class="block w-full px-4 py-3 rounded-lg text-sm text-slate-600 placeholder:text-slate-400 bg-slate-50 border-0 focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+      <div class="w-full">
+        <label for="email" class="sr-only">Email</label>
+        <input
+          id="email"
+          type="email"
+          name="email"
+          placeholder="Email address"
+          required
+          class="block w-full px-4 py-3 rounded-lg text-sm text-slate-600 placeholder:text-slate-400 bg-slate-50 border-0 focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+      <div>
+        <label for="company" class="sr-only">Company</label>
+        <input
+          id="company"
+          type="text"
+          name="company"
+          placeholder="Company name"
+          class="block w-full px-4 py-3 rounded-lg text-sm text-slate-600 placeholder:text-slate-400 bg-slate-50 border-0 focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+      <div>
+        <label for="message" class="sr-only">Message</label>
+        <textarea
+          id="message"
+          name="message"
+          rows="4"
+          placeholder="Your message"
+          class="block w-full px-4 py-3 rounded-lg text-sm text-slate-600 placeholder:text-slate-400 bg-slate-50 border-0 focus:ring-2 focus:ring-blue-500"
+        ></textarea>
+      </div>
+    </div>
+    
+    <button
+      type="submit"
+      class="text-blue-600 mt-8 w-full items-center font-medium gap-3 text-sm inline-flex focus-visible:outline-2 focus-visible:outline-offset-2 focus:outline-none justify-center px-6 ring-2 ring-transparent focus:ring-offset-2 focus:ring-blue-500 duration-200 py-2.5 rounded-full active:bg-blue-800 active:text-white bg-blue-50 hover:bg-blue-100"
+    >
+      Send Message
+    </button>
+
+    <div class="mt-4">
+      <div class="flex items-start">
+        <input
+          id="privacy"
+          name="privacy"
+          type="checkbox"
+          required
+          class="mt-1 size-4 rounded text-blue-600 focus:ring-blue-500"
+        />
+        <label for="privacy" class="ml-3 text-xs text-slate-500">
+          By submitting this form, you agree to our
+          <a href="/privacy" class="text-blue-600 hover:text-blue-500">Privacy Policy</a>
+          and
+          <a href="/terms" class="text-blue-600 hover:text-blue-500">Terms of Service</a>.
+        </label>
+      </div>
+    </div>
+  </form>
