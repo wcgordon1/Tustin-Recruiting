@@ -9,10 +9,13 @@ const allJobs = await getCollection("jobs");
 <BaseLayout>
   <section class="bg-white">
     <div class="mx-auto max-w-7xl lg:px-16 md:px-12 px-8 xl:px-24 mt-12">
-      <h1
-      class="text-purple-900 font-semibold mt-6 text-3xl lg:text-4xl tracking-tight mb-12">
-      Tustin Recruiting Jobs
-    </h1>
+      <span class="text-sm uppercase font-medium tracking-wide text-blue-600 "
+          >Tustin Recruiting</span
+        >
+        <h1
+          class="text-purple-900 font-semibold mt-6 text-4xl lg:text-5xl tracking-tigh mb-12">
+          Open Positions
+        </h1>
       <JobGrid jobs={allJobs} />
     </div>
   </section>

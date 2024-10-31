@@ -61,7 +61,7 @@ const formatDate = (date) => {
       </div>
 
       <h3 class="text-lg font-semibold text-purple-900 mb-4">Job Type</h3>
-      <div class="grid grid-cols-2 lg:grid-cols-1 gap-4 mb-6">
+      <div class="grid grid-cols-2 lg:grid-cols-1 gap-2 mb-6">
         <div>
           <input type="checkbox" id="FULL_TIME" class="mr-2 rounded text-blue-600 focus:ring-blue-500">
           <label for="FULL_TIME" class="text-slate-600">Full-time</label>
@@ -81,7 +81,7 @@ const formatDate = (date) => {
       </div>
 
       <h3 class="text-lg font-semibold text-purple-900 mb-4">Experience Level</h3>
-      <div class="grid grid-cols-2 lg:grid-cols-1 gap-4">
+      <div class="grid grid-cols-2 lg:grid-cols-1 gap-2">
         <div>
           <input type="checkbox" id="entry-level" class="mr-2 rounded text-blue-600 focus:ring-blue-500">
           <label for="entry-level" class="text-slate-600">Entry Level</label>
@@ -126,11 +126,14 @@ const formatDate = (date) => {
           <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 hover:border-blue-100 hover:shadow-md transition duration-200">
             
             <div class="flex justify-between items-center mb-1">
-                <p class="text-base font-semibold text-slate-500 mb-1" x-text="job.data.companyDetails.name"></p>
-                <span class="text-xs font-medium text-blue-600 bg-blue-50 px-3 py-1 rounded-full" x-text="'NEW' "></span>
+                <div class="flex items-center">
+                    <img :src="job.data.companyDetails.logo" alt="Company Logo" class="w-6 h-6 mr-2">
+                    <p class="text-base font-semibold text-slate-500" x-text="job.data.companyDetails.name"></p>
+                </div>
+                <span class="text-xs font-medium text-blue-600 bg-blue-50 px-2 py-1 rounded-full" x-text="'NEW' "></span>
             </div>
 
-            <div class="flex justify-between items-center mb-1">
+            <div class="flex justify-between items-center gap-2 mb-1">
               <h3 class="text-lg font-semibold text-blue-600 group-hover:text-blue-700" x-text="job.data.position"></h3>
               <!-- <span class="text-xs font-medium text-blue-600 bg-blue-50 px-3 py-1 rounded-full" x-text="job.data.employmentType.replace('_', ' ')"></span> -->
             </div>            
@@ -142,8 +145,10 @@ const formatDate = (date) => {
                   <p class="text-sm text-slate-500" x-text="'Posted ' + formatDate(job.data.datePosted)"></p>
             </div>
             
-            <p class="text-sm text-slate-500 line-clamp-2" x-text="job.data.description"></p>
+            <p class="text-sm text-slate-500 line-clamp-2 mb-2" x-text="job.data.description"></p>
+            <p class="text-base font-semibold text-blue-600 group-hover:text-blue-700" x-text="'Easy Apply &nbsp; &rarr;'"></p>
           </div>
+          
         </a>
       </template>
     </div>
